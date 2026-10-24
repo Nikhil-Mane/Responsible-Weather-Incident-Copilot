@@ -1,0 +1,91 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "weather-incident-copilot"
+version = "0.1.0"
+description = "Responsible Weather Incident Copilot: evidence-backed incident briefings with human approval."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.7,<3",
+    "pydantic-settings>=2.3,<3",
+    "tenacity>=8.2,<10",
+    "pymupdf>=1.24,<2",
+    "scikit-learn>=1.4,<2",
+    "langchain-core>=1.2.22,<2",
+    "langchain-openai>=1.1.14,<2",
+    "langgraph>=1.0.10,<2",
+    "langgraph-checkpoint-sqlite>=3.1.1,<4",
+]
+
+[project.optional-dependencies]
+agents = ["crewai[azure-ai-inference]>=1.0,<2", "litellm>=1.96.2", "json-repair>=0.60.1"]
+ui = ["streamlit>=1.50,<2"]
+observability = ["langfuse>=5,<6"]
+dev = [
+    "pytest>=8,<9",
+    "pytest-cov>=5,<7",
+    "hypothesis>=6.100,<7",
+    "ruff>=0.5",
+    "mypy>=1.10",
+    "pre-commit>=3.7",
+    "pip-audit>=2.7",
+    "bandit>=1.7",
+]
+
+[project.scripts]
+copilot = "copilot.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers -m 'not azure'"
+markers = ["azure: tests that call the real Azure OpenAI service (deselected by default)"]
+filterwarnings = ["ignore::langchain_core._api.deprecation.LangChainPendingDeprecationWarning"]
+pythonpath = ["src"]
+
+[tool.coverage.run]
+source = ["src/copilot"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 90
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM", "S", "RET", "PTH", "T20", "PL", "RUF"]
+ignore = ["PLR2004"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "PLR2004", "S105", "S106"]
+"src/copilot/cli.py" = ["T201"]
+# these import optional packages after `pytest.importorskip(...)` on purpose
+"tests/test_crew.py" = ["E402"]
+"tests/test_ui.py" = ["E402"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+plugins = ["pydantic.mypy"]
+mypy_path = "src"
+packages = ["copilot"]
+
+[[tool.mypy.overrides]]
+module = ["sklearn.*", "crewai", "crewai.*", "langfuse", "langfuse.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["copilot.data.extract"]
+disallow_untyped_calls = false  # PyMuPDF ships without complete type hints
+
+[tool.bandit]
+exclude_dirs = ["tests"]

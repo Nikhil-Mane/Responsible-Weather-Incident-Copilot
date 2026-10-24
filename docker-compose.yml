@@ -1,0 +1,35 @@
+# docker compose up --build        # the app
+#
+# Langfuse tracing (optional): put LANGFUSE_PUBLIC_KEY, LANGFUSE_SECRET_KEY and LANGFUSE_HOST in .env.
+#
+# Required in .env (no insecure defaults are provided):
+#   COPILOT_APPROVAL_SECRET   32+ characters
+
+services:
+  copilot:
+    build: .
+    image: weather-incident-copilot:0.1.0
+    env_file: .env
+    environment:
+      # `environment` beats `env_file`, so a `.env` copied from `.env.example` cannot point these
+      # at relative paths on the read-only root filesystem.
+      COPILOT_ENV: prod
+      COPILOT_DATA_DIR: /app/data
+      COPILOT_STATE_DIR: /app/var
+      COPILOT_GENERATED_DIR: /app/var/generated
+    ports:
+      - "8501:8501"
+    volumes:
+      - copilot_state:/app/var
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /home/copilot/.streamlit
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    restart: unless-stopped
+
+volumes:
+  copilot_state:

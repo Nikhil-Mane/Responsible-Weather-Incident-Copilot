@@ -1,0 +1,46 @@
+# Secrets: never commit real credentials (.env.example is the template)
+.env
+.env.*
+!.env.example
+
+# Virtual environments and bytecode
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Tool caches and coverage output
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.coverage
+.coverage.*
+htmlcov/
+
+# Build artefacts
+*.egg-info/
+build/
+dist/
+
+# Runtime state, recreated on first run (audit log, checkpoints, runs, sent record, eval report)
+var/
+*.sqlite
+
+# Regenerated from the supplied PDFs on first run
+data/generated/
+
+# Supplied but intentionally unused (see docs/adr/0004)
+data/Scenarios.pdf
+
+# Internal project notes, not part of the submission
+PLAN.md
+CHANGELOG.md
+CONTRIBUTING.md
+
+# Editor, OS and assistant files
+.claude/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0",
+  "rules_version": "1.0.0",
+  "run_id": "flood-example",
+  "severity": "severe",
+  "hazards": [
+    "intense rainfall",
+    "rising river level",
+    "active flood warning",
+    "rapid river rise"
+  ],
+  "actions": [
+    "Inspect drainage hotspots",
+    "Verify flood equipment readiness",
+    "Coordinate approved diversions",
+    "Prepare a local-team readiness alert"
+  ],
+  "action_items": [
+    {
+      "text": "Inspect drainage hotspots",
+      "citations": [
+        "PLAYBOOK-FLOOD-001"
+      ]
+    },
+    {
+      "text": "Verify flood equipment readiness",
+      "citations": [
+        "PLAYBOOK-FLOOD-001"
+      ]
+    },
+    {
+      "text": "Coordinate approved diversions",
+      "citations": [
+        "PLAYBOOK-FLOOD-001"
+      ]
+    },
+    {
+      "text": "Prepare a local-team readiness alert",
+      "citations": [
+        "PLAYBOOK-FLOOD-001"
+      ]
+    }
+  ],
+  "citations": [
+    "weather_snapshot",
+    "official-river-gauge-northbridge-07",
+    "PLAYBOOK-FLOOD-001",
+    "PLAYBOOK-COMMS-004"
+  ],
+  "local_team_alert": "DRAFT: River flood warning in Northbridge. Affected area: Riverside, Old Town. Readiness action: inspect drainage hotspots; verify flood equipment readiness; coordinate approved diversions. Approval status: pending incident-commander approval; await incident-command direction. Not sent.",
+  "alert_recipients": [
+    "response_team"
+  ],
+  "route": "human_review",
+  "approval_status": "pending_commander_approval",
+  "review_reasons": [
+    "severity is severe",
+    "4 concurrent hazards",
+    "rapid river rise"
+  ],
+  "warnings": [],
+  "generated_at": "2026-09-01T09:05:00+00:00",
+  "trace": [
+    "validated_input",
+    "hazards_assessed",
+    "retrieved_playbooks",
+    "actions_drafted",
+    "alert_drafted",
+    "review_required"
+  ],
+  "trace_detail": [
+    {
+      "step": "validated_input",
+      "status": "ok",
+      "at": "2026-09-01T09:05:00+00:00",
+      "detail": {
+        "source_id": "official-river-gauge-northbridge-07",
+        "issues": []
+      }
+    },
+    {
+      "step": "hazards_assessed",
+      "status": "ok",
+      "at": "2026-09-01T09:05:00+00:00",
+      "detail": {
+        "severity": "severe",
+        "hazards": [
+          "intense rainfall",
+          "rising river level",
+          "active flood warning",
+          "rapid river rise"
+        ],
+        "flood_risk": true,
+        "rules_version": "1.0.0"
+      }
+    },
+    {
+      "step": "retrieved_playbooks",
+      "status": "ok",
+      "at": "2026-09-01T09:05:00+00:00",
+      "detail": {
+        "query": "River flood warning intense rainfall rising river level active flood warning rapid river rise flood rainfall river drainage draft alert approval incident commander readiness",
+        "topics": [
+          "communications",
+          "flood"
+        ],
+        "sources": [
+          "PLAYBOOK-FLOOD-001",
+          "PLAYBOOK-COMMS-004"
+        ]
+      }
+    },
+    {
+      "step": "actions_drafted",
+      "status": "ok",
+      "at": "2026-09-01T09:05:00+00:00",
+      "detail": {
+        "count": 4,
+        "dropped_uncited": [],
+        "dropped_ungrounded": [],
+        "fallback_reason": ""
+      }
+    },
+    {
+      "step": "alert_drafted",
+      "status": "ok",
+      "at": "2026-09-01T09:05:00+00:00",
+      "detail": {
+        "guardrail_problems": [],
+        "fallback_reason": ""
+      }
+    },
+    {
+      "step": "review_required",
+      "status": "ok",
+      "at": "2026-09-01T09:05:00+00:00",
+      "detail": {
+        "reasons": [
+          "severity is severe",
+          "4 concurrent hazards",
+          "rapid river rise"
+        ],
+        "route": "human_review"
+      }
+    }
+  ]
+}
