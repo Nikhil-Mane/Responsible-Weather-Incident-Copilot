@@ -9,6 +9,7 @@ It **never sends a real alert and never dispatches anyone**. Every alert is a dr
 incident commander approves it, and even then the only "send" is a simulated adapter that logs.
 
 * Design note (data quality, security, privacy, model choice, production): [docs/design_note.md](docs/design_note.md)
+* Agents approach (roles, boundaries, validation, fallback): [docs/agents.md](docs/agents.md)
 * Architecture decisions: [docs/adr/](docs/adr/) · Runbook: [docs/runbook.md](docs/runbook.md)
 * Real flood response example: [docs/flood_response_example.json](docs/flood_response_example.json)
 
@@ -239,7 +240,7 @@ app.py         Streamlit UI (same services as the CLI)
 scripts/       extract_data.py
 eval/          run_eval.py
 tests/         431 tests (unit, property-based, integration, adversarial, UI, architecture)
-docs/          design note, ADRs, runbook, flood example
+docs/          design note, agents approach, ADRs, runbook, flood example
 data/          the supplied PDFs (unmodified); data/generated/ is derived and git-ignored
 ```
 
