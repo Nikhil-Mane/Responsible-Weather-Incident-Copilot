@@ -72,7 +72,7 @@ pip install -e ".[dev,ui,agents,observability]"
 copy .env.example .env          # then set COPILOT_APPROVAL_SECRET (any 32+ character value)
 
 python scripts/extract_data.py  # PDFs -> data/generated/*.json (also runs automatically when missing)
-pytest                          # 418 tests
+pytest                          # 431 tests
 python eval/run_eval.py         # labeled scenarios + failure paths, with metrics
 ```
 
@@ -238,7 +238,7 @@ src/copilot/
 app.py         Streamlit UI (same services as the CLI)
 scripts/       extract_data.py
 eval/          run_eval.py
-tests/         418 tests (unit, property-based, integration, adversarial, UI, architecture)
+tests/         431 tests (unit, property-based, integration, adversarial, UI, architecture)
 docs/          design note, ADRs, runbook, flood example
 data/          the supplied PDFs (unmodified); data/generated/ is derived and git-ignored
 ```
